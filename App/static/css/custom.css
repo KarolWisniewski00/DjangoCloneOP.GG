@@ -1,0 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Kanit:ital@1&display=swap');
+*{
+    font-family: 'Kanit', sans-serif;
+}
+.w-fit{
+    width: fit-content;
+}
+.bg-custom-1{
+    background-color: #021226;
+}

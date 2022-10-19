@@ -9,7 +9,7 @@ def summoner(request):
         "Accept-Language": "pl-PL,pl;q=0.9,en-US;q=0.8,en;q=0.7",
         "Accept-Charset": "application/x-www-form-urlencoded; charset=UTF-8",
         "Origin": "https://developer.riotgames.com",
-        "X-Riot-Token": "RGAPI-50fa5560-0a2c-4eb0-9793-379c2fe0351d"
+        "X-Riot-Token": "RGAPI-b1b79aa7-aece-4aba-8c63-f2a68577795b"
     }
     
     response = requests.get(url+endings, headers=headers)
