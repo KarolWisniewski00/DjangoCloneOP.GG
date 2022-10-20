@@ -92,16 +92,20 @@ class API():
 
     def getMatch(self):
         #third response
-        maxMatch=3
+        maxMatch=6
         self.matches=[]
+        #main que fo list of the ids of matches
         ending = "/lol/match/v5/matches/by-puuid/{}/ids?start=0&count={}&api_key={}".format(self.puuid,maxMatch,self.key)
         response = requests.get(self.urlSecond+ending, headers=self.headers)
         jsonMain=response.json()
+
         for match in range(maxMatch):
+            itemsPath=[]
             ending = '/lol/match/v5/matches/'+jsonMain[match]
             response = requests.get(self.urlSecond+ending, headers=self.headers)
             json=response.json()
 
+            #find the player
             for player in range(9):
                 if (self.name==json['info']['participants'][player]['summonerName']):
                     championName = json['info']['participants'][player]['championName']
@@ -109,6 +113,24 @@ class API():
                     kills = json['info']['participants'][player]['kills']
                     deaths = json['info']['participants'][player]['deaths']
                     assists = json['info']['participants'][player]['assists']
+                    totalMinionsKilled = json['info']['participants'][player]['totalMinionsKilled']
+                    goldEarned = json['info']['participants'][player]['goldEarned']
+                    champLevel = json['info']['participants'][player]['champLevel']
+                    for item in range(7):
+                        if (json['info']['participants'][player]['item'+str(item)]==0):
+                            itemsPath.append('empty')
+                        else:
+                            itemsPath.append('https://ddragon.leagueoflegends.com/cdn/12.20.1/img/item/{}.png'.format(json['info']['participants'][player]['item'+str(item)]))
+                    championImagePath = 'http://ddragon.leagueoflegends.com/cdn/12.20.1/img/champion/{}.png'.format(championName)
+
+            #change names
+            if (win == True):
+                win='Victory'
+            elif (win ==  False):
+                win='Lose'
+            else:
+                win='Remake'
+
             gameMode = json['info']['gameMode']
             self.matches.append({
                 'gameMode':gameMode,
@@ -117,6 +139,11 @@ class API():
                 'kills':kills,
                 'deaths':deaths,
                 'assists':assists,
+                'totalMinionsKilled':totalMinionsKilled,
+                'goldEarned':goldEarned,
+                'championImagePath':championImagePath,
+                'champLevel':champLevel,
+                'itemsPath':itemsPath,
             })
 
         return self.matches

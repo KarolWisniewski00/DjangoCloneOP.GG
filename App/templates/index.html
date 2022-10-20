@@ -1,7 +1,8 @@
 {% extends 'layout.html'%}
 {% block content %}
 <div class="container">
-    <div class="row text-center justify-content-center">
+    <form action="/summoner/" method="POST" class="row text-center justify-content-center">
+        {% csrf_token %}
         <div class="col-12 my-5">
             <h1>Clone OP.GG</h1>
         </div>
@@ -15,14 +16,12 @@
                     <li><a class="dropdown-item" href="#">North America</a></li>
                 </ul>
                 <input type="text" class="form-control bg-dark text-white border-secondary"
-                    aria-label="Text input with dropdown button" placeholder="Username">
+                    aria-label="Text input with dropdown button" name="summonerName" placeholder="Summoner name">
             </div>
         </div>
         <div class="col-12">
-            <button type="button" class="btn btn-primary">
-                <h1>Show</h1>
-            </button>
+            <input type="submit" class="btn btn-primary" value="Show summoner">
         </div>
-    </div>
+    </form>
 </div>
 {% endblock %}

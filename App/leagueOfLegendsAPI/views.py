@@ -1,8 +1,12 @@
 from django.shortcuts import render
 from .api import API
+from django.shortcuts import redirect
+
+def summonerForm(request):
+    return redirect('/summoner/'+request.POST.get('summonerName',''))
 
 def summoner(request, summoner):
-    api = API(summoner, "RGAPI-ad0165a1-44f6-4548-9b62-951287bcffb4")
+    api = API(summoner, "RGAPI-1deb906e-e98d-4fef-b67b-186f432f4c3e")
     error = api.response()
     if (error==1):
         return render(request, 'summonerError.html',{
