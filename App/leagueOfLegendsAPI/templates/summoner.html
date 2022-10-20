@@ -3,6 +3,11 @@
 {% block content %}
 <div class="container">
     <div class="row">
+        <div class="col-1">
+            <a href="/" class="btn btn-secondary m-2">Home</a>
+        </div>
+    </div>
+    <div class="row">
         <div class="col-12 d-flex flex-column my-2 text-center align-items-center">
             <div class="d-flex flex-column p-2 align-items-center">
                 <img src="https://ddragon.leagueoflegends.com/cdn/12.19.1/img/profileicon/{{profileIconId}}.png" class="rounded float-start" alt="profileIcon" width="250" height="250">
@@ -61,6 +66,11 @@
         <div class="col-12">
             <div class="border border-light rounded d-flex flex-column">
                 <div class="text-center"><h2>Mach history</h2></div>
+                {% for match in matches %}
+                <div class="d-flex flex-row">
+                    <div>{{match}}</div>
+                </div>
+                {% endfor %}
             </div>
         </div>
     </div>

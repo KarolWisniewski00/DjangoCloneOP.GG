@@ -2,7 +2,7 @@ from django.shortcuts import render
 from .api import API
 
 def summoner(request, summoner):
-    api = API(summoner, "https://eun1.api.riotgames.com", "RGAPI-ad0165a1-44f6-4548-9b62-951287bcffb4")
+    api = API(summoner, "RGAPI-ad0165a1-44f6-4548-9b62-951287bcffb4")
     error = api.response()
     if (error==1):
         return render(request, 'summonerError.html',{
@@ -12,6 +12,7 @@ def summoner(request, summoner):
     profile = api.getProfile()
     flex = api.getRanked('Flex')
     solo = api.getRanked('Solo')
+    matches = api.getMatch()
 
     return render(request, 'summoner.html',{
         'name':profile['name'],
@@ -33,4 +34,5 @@ def summoner(request, summoner):
         'lossesSolo':solo['losses'],
         'winRateSolo': '{:0.2f}'.format(solo['winRate']),
         'imagePathSolo':solo['imagePath'],
+        'matches':matches
         })
