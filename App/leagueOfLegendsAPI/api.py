@@ -108,6 +108,7 @@ class API():
             #find the player
             for player in range(9):
                 if (self.name==json['info']['participants'][player]['summonerName']):
+                    #get data from that player
                     championName = json['info']['participants'][player]['championName']
                     win = json['info']['participants'][player]['win']
                     kills = json['info']['participants'][player]['kills']
@@ -116,6 +117,8 @@ class API():
                     totalMinionsKilled = json['info']['participants'][player]['totalMinionsKilled']
                     goldEarned = json['info']['participants'][player]['goldEarned']
                     champLevel = json['info']['participants'][player]['champLevel']
+                    summoner1Id = json['info']['participants'][player]['summoner1Id']
+                    summoner2Id = json['info']['participants'][player]['summoner2Id']
                     for item in range(7):
                         if (json['info']['participants'][player]['item'+str(item)]==0):
                             itemsPath.append('empty')
@@ -123,6 +126,19 @@ class API():
                             itemsPath.append('https://ddragon.leagueoflegends.com/cdn/12.20.1/img/item/{}.png'.format(json['info']['participants'][player]['item'+str(item)]))
                     championImagePath = 'http://ddragon.leagueoflegends.com/cdn/12.20.1/img/champion/{}.png'.format(championName)
 
+            #chanche id int to string
+            url="http://ddragon.leagueoflegends.com/cdn/12.20.1/data/en_US/summoner.json"
+            response= requests.get(url)
+            jsonSummonerSpell=response.json()
+            for summonerSpellKey in jsonSummonerSpell['data']:
+                if (int(jsonSummonerSpell['data'][summonerSpellKey]['key']) == summoner1Id):
+                    summoner1Id = jsonSummonerSpell['data'][summonerSpellKey]['id']
+                    summoner1Id = 'https://ddragon.leagueoflegends.com/cdn/12.20.1/img/spell/{}.png'.format(summoner1Id)
+                if (int(jsonSummonerSpell['data'][summonerSpellKey]['key']) == summoner2Id):
+                    summoner2Id = jsonSummonerSpell['data'][summonerSpellKey]['id']
+                    summoner2Id = 'https://ddragon.leagueoflegends.com/cdn/12.20.1/img/spell/{}.png'.format(summoner2Id)
+                
+            
             #change names
             if (win == True):
                 win='Victory'
@@ -144,6 +160,8 @@ class API():
                 'championImagePath':championImagePath,
                 'champLevel':champLevel,
                 'itemsPath':itemsPath,
+                'summoner1Id':summoner1Id,
+                'summoner2Id':summoner2Id,
             })
 
         return self.matches
