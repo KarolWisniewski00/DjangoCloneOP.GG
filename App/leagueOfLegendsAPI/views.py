@@ -6,7 +6,7 @@ def summonerForm(request):
     return redirect('/summoner/'+request.POST.get('summonerName',''))
 
 def summoner(request, summoner):
-    api = API(summoner, "RGAPI-65f87b39-363b-4ef2-b5d9-50a6a07fa124")
+    api = API(summoner, "RGAPI-debd7955-8ca4-4509-8e55-307a04ffa7f7")
     error = api.response()
     if (error==1):
         return render(request, 'summonerError.html',{
